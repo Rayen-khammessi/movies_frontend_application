@@ -12,9 +12,10 @@ class LoginForm extends Component {
     };
     handlesubmit=e=>{
         e.preventDefault();
-
-        const username = this.username.current.value ;
-        console.log(username)
+        const uperrors =this.validate();
+        this.setState({errors:uperrors});
+        if (errors) return;
+        console.log(this.state.errors)
     };
     handlechange=e=>{
         const upaccount={...this.state.account};
