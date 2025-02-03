@@ -6,7 +6,7 @@ import Listgroup from "./common/listgroup";
 import {getgenres } from "../services/fakegenreservices";
 import Moviesable from "./moviesTable";
 import _ from 'lodash';
-
+import { NavLink, useNavigate } from "react-router-dom";
 class Movies extends Component{
     state={
         movies:getmovies(),
@@ -40,13 +40,15 @@ class Movies extends Component{
     };
     handlepagechange= page =>{
         this.setState({currentpage:page})
-    }
+    };
     handlegenrebutton=(upgenre)=>{
         this.setState({genre:upgenre,currentpage:1});
-    }
+    };
     handlesort=upsortcolumn=>{
         this.setState({sortcolumn:upsortcolumn});
-    }
+    };
+
+
 
 
     render(){
@@ -62,7 +64,8 @@ class Movies extends Component{
         const sorted=_.orderBy(upmovies,[sortcolumn.path],[sortcolumn.order])
         const minimovies=paginate(sorted,currentpage,pagesize)
         return (
-            <React.Fragment>    
+            <React.Fragment>  
+            <NavLink className='btn btn-primary' to='/movies/new'>Add Film</NavLink>  
             <p>Showing {minimovies.length} movies in the database</p>
             <div className="d-flex flex-row mb-2">
                 <div className="p-2">

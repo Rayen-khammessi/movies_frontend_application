@@ -1,22 +1,50 @@
 import React, { Component } from 'react';
-import { useParams, Navigate } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import Input from './common/input';
+import  Joi  from 'joi-browser';
+import Form1 from './common/form';
+
+class MovieFrom extends Form1 {
+    state={
+        data:{ 
+            title:'',
+            genre:'',
+            numberinstock:'',
+            rate:''
+        },
+        errors:{}
+    };
+    schema={
+        title: Joi.string().required().label('Title'),
+        genre: Joi.string().required().label('Genre'),
+        numberinstock: Joi.number().greater(0).required().label('Number in stock'),
+        rate: Joi.number().greater(0).less(10).required().label('Rate')
+    };
 
 
-const MovieForm = ({useParams}) => {
-    const navigate=useNavigate()
+    dosubmit=()=>{
+        console.log("submitted");
+    };
 
-    const handleSave=()=>{
-        navigate('/movies')
+
+
+    render() {
+        return (
+            <div>
+            <form onSubmit={this.handlesubmit}>
+                <Input name='title' value={this.state.data.title} label='Titel' onChange={this.handlechange} error={this.state.errors.title} />
+                <Input name='genre' value={this.state.data.genre} label='Genre' onChange={this.handlechange} error={this.state.errors.genre} />
+                <select class="form-control">
+                    <option>Action</option>
+                    <option>Comedie</option>
+                    <option>Thriller</option>
+                </select>
+                <Input name='numberinstock' value={this.state.data.numberinstock} label='Number in stock' onChange={this.handlechange} error={this.state.errors.numberinstock} />
+                <Input name='rate' value={this.state.data.rate} label='Rate' onChange={this.handlechange} error={this.state.errors.rate} />
+                <button disabled={this.validate()} className="btn btn-primary">Save</button>
+            </form>
+            </div>
+        );
     }
-    console.log(useParams)
-    return (
-        <React.Fragment>
-            <h1>Movie FORM </h1>
-            <button className='btn btn-primary' onClick={handleSave}>Save</button>
-
-        </React.Fragment>
-    );
 }
  
-export default MovieForm;
+export default MovieFrom;

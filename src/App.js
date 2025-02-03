@@ -9,6 +9,7 @@ import { Navigate } from 'react-router-dom';
 import NavBar from './components/navBar';
 import MovieForm from './components/movieFORM';
 import LoginForm from './components/common/loginForm';
+import RegisterForm from './components/common/registerFrom';
 
 class App extends Component {
   render() {
@@ -17,10 +18,13 @@ class App extends Component {
       <NavBar/>
       <main className='container'>
         <Routes>
+          <Route path='/movies/new' Component={MovieForm}></Route>
           <Route path='/movies/:id' Component={MovieForm}></Route>
+          <Route path='/' Component={Movies}/>
           <Route path='/movies' Component={Movies}/>
           <Route path='/cutomrs' Component={customers}/>
           <Route path='/login' Component={LoginForm}/>
+          <Route path='/register' Component={RegisterForm}/>
           <Route path='/rentals' Component={Rentals}/>
           <Route path='/not-found' Component={Notfound}/>
           <Route path="*" element={<Navigate to="/not-found" replace />}/>

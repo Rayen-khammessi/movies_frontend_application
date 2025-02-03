@@ -44,5 +44,5 @@ class Tryy extends Component {
         )
     }
 }
-
+ 
 export default Tryy;

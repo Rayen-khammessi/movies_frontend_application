@@ -1,34 +1,30 @@
 import React, { Component } from 'react';
 import Input from './input';
-
-class LoginForm extends Component {
-    username = React.createRef();
+import  Joi  from 'joi-browser';
+import Form1 from './form';
+class LoginForm extends Form1 {
     state={
-        account:{ 
+        data:{ 
             username:'',
             password:''
         },
         errors:{}
     };
-    handlesubmit=e=>{
-        e.preventDefault();
-        const uperrors =this.validate();
-        this.setState({errors:uperrors});
-        if (errors) return;
-        console.log(this.state.errors)
+    schema={
+        username: Joi.string().required().label('Username'),
+        password: Joi.string().required().label('Password')
     };
-    handlechange=e=>{
-        const upaccount={...this.state.account};
-        upaccount[e.currentTarget.name] = e.currentTarget.value;
-        this.setState({account:upaccount});
+    dosubmit=()=>{
+        console.log("submitted");
     };
+
     render() {
         return (
             <div>
             <form onSubmit={this.handlesubmit}>
-                <Input name='username' value={this.state.account.username} label='"Username' onChange={this.handlechange} />
-                <Input name='password' value={this.state.account.password} label='"Password' onChange={this.handlechange} />
-                <button type="submit" className="btn btn-primary">Login</button>
+                <Input name='username' value={this.state.data.username} label='Username' onChange={this.handlechange} error={this.state.errors.username} />
+                <Input name='password' value={this.state.data.password} label='Password' onChange={this.handlechange} error={this.state.errors.password} />
+                <button disabled={this.validate()} className="btn btn-primary">Login</button>
             </form>
             </div>
         );
